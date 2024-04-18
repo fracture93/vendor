@@ -2,6 +2,38 @@ local _, Addon = ...
 
 Addon.ReleaseNotes = {
 {
+Release = "6.4 (April ??, 2024)",
+Notes = [[
+# Dragonflight 10.2.6 Support
+
+This release fixes a few bugs and updates the TOC for 10.2.6. Vendor usually works fine
+even when outdated so we dont always update the TOC as often as we should. We will try
+to be better about this in the future. Vendor has been safe to load and use when out
+of date for minor patches and we will always update it for major releases.
+
+# Chat Output
+Chat Output beta feature re-enabled for use. This feature probably has some bugs but
+it was commonly requested. Give it a try!
+
+# AdiBags Integration 
+Better AdiBags integration. <MORE DETAILS>
+
+# TWW Update Planned
+We are planning a vendor 7 release for The War Within once we have beta access and
+can start updating to the UI and other changes. Just as with Dragonflight and
+Shadowlands, we will ensure it is high quality for the expansion release and will have
+a beta release as soon as possible. We have no way of testing Vendor currently on
+the TWW alpha so if you try to use it there, use at your own risk and we will not
+be able to address any issues in the short term.
+
+# Bugfixes
+* IsAccountBound fixed. This was using the wrong localized string compare before and
+should now function correctly on all locales (we use the Blizzard variable for comparison).
+* Built in IsCosmetic keep rule is now just IsCosmetic, no other values checked.
+
+]]
+},
+{
 Release = "6.3 (November 6, 2023)",
 Notes = [[
 # Dragonflight 10.2 Support

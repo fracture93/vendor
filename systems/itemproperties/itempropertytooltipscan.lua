@@ -63,9 +63,14 @@ function ItemProperties:IsItemCraftingReagentInTooltip(tooltipdata)
     return self:IsStringInTooltipLeftText(tooltipdata, L["TOOLTIP_SCAN_CRAFTINGREAGENT"])
 end
 
+-- Blizzard Account Bound
+function ItemProperties:IsItemBlizzardAccountBoundInTooltip(tooltipdata)
+    return self:IsStringInTooltipLeftText(tooltipdata, L["TOOLTIP_SCAN_BLIZZARDACCOUNTBOUND"])
+end
+
 -- Account Bound
 function ItemProperties:IsItemAccountBoundInTooltip(tooltipdata)
-    return self:IsStringInTooltipLeftText(tooltipdata, L["TOOLTIP_SCAN_BLIZZARDACCOUNTBOUND"])
+    return self:IsStringInTooltipLeftText(tooltipdata, L["TOOLTIP_SCAN_ACCOUNTBOUND"])
 end
 
 -- Cosmetic Item
