@@ -4,9 +4,7 @@ local UI = Addon.CommonUI.UI
 local Layouts = Addon.CommonUI.Layouts
 local PAGE_SPACING = 12
 
---@debug@
 local function debugp(msg, ...) Addon:Debug("chat", msg, ...) end
---@end-debug@
 
 local FrameSetting = {}
 local ChatSettings = {}

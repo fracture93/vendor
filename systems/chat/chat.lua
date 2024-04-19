@@ -63,10 +63,9 @@ function ChatSystem:Output(mtype, message, ...)
 
     local success, output = pcall(string.format, message, unpack(args))
     if (not success) then
-        --@debug@
-        DEFAULT_CHAT_FRAME:AddMessage(RED_FONT_COLOR_CODE .. "Failed to format string:|r \"" .. message .. "\"|r")
-        --@end-debug@
-        --Addon:LogError(....)
+        if (Addon.IsDebug) then
+            DEFAULT_CHAT_FRAME:AddMessage(RED_FONT_COLOR_CODE .. "Failed to format string:|r \"" .. message .. "\"|r")
+        end
     else
         if (self.ready and (type(self.chat)  == "table")) then
             self.chat:Output(mtype, output)

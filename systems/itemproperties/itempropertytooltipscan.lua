@@ -1,6 +1,6 @@
 local _, Addon = ...
 local L = Addon:GetLocale()
-local debugp = function (...) Addon:Debug("tooltipscan", ...) end
+local function debugp(...) Addon:Debug("tooltipscan", ...) end
 
 -- No more need for a scanning tip, we assume properties are importing the tooltip data and can pass it along.
 -- This set of utilities just scans the blizzard tooltip data as-is.

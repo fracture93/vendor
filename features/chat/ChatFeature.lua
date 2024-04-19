@@ -3,9 +3,7 @@ local locale = Addon:GetLocale()
 local FRAMES_KEY = "feature:chat:frames"
 local MessageType = Addon.Systems.Chat.MessageType
 
---@debug@
-local debugp = function (msg, ...) Addon:Debug("chat", "ChatFeature: " .. msg, ...) end
---@debug-end@
+local function debugp(msg, ...) Addon:Debug("chat", "ChatFeature: " .. msg, ...) end
 
 local ChatFeature = { 
     NAME = "Chat Output", 
@@ -80,12 +78,12 @@ function ChatFeature:Output(type, message)
         return
     end
 
-    --@debug
-    if (type == MessageType.Debug) then
-        if (not Addon.IsDebug) then return end;
-        prefix = string.format(locale.CHAT_MESSAGEDEBUG_PREFIX_FMT1, AddonName)
+    if (Addon.IsDebug) then
+        if (type == MessageType.Debug) then
+            if (not Addon.IsDebug) then return end;
+            prefix = string.format(locale.CHAT_MESSAGEDEBUG_PREFIX_FMT1, AddonName)
+        end
     end
-    --@end-debug@
     
     ChatFrameUtil.ForEachChatFrame(
         function(frame)

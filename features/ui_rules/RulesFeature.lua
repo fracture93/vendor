@@ -45,24 +45,19 @@ function RulesFeature:GetMatches(script, parameters)
     return results
 end
 
---@debug@--
--- Validae the rule type
+-- Validate the rule type
 local function isValidRuleType(type)
     return not type or
         type == RuleType.SELL or
         type == RuleType.KEEP or
         type == RuleType.DESTROY
 end
---@end-debug@
 
 --[[
     Retrieves all the rules, with an optional type match
 ]]
 function RulesFeature:GetRules(ruleType, all)
-    --@debug@
     assert(isValidRuleType(ruleType), "An invalid rule type was provided :: " .. tostring(type))
-    --@end-debug@
-
     local hidden = Addon.RuleConfig:Get(RuleType.HIDDEN)
     local rules = {}
 

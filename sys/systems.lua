@@ -1,5 +1,5 @@
 local AddonName, Addon = ...
-local debugp = function (...) Addon:Debug("systems", ...) end
+local function debugp(...) Addon:Debug("systems", ...) end
 local systems = {}
 
 --[[ Checks the local list for a dependency ]]

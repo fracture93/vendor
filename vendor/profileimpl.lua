@@ -51,9 +51,7 @@ function Profile:GetRules(ruleType)
 		return self:GetValue(key) or {};
 	end
 
-	--@debug@
-	error(string.format("Unable to retrieve rules '%s' as it is invalid.", ruleType));
-	--@end-debug@
+	assert(false, string.format("Unable to retrieve rules '%s' as it is invalid.", ruleType));
 	return {};
 end
 
@@ -72,9 +70,7 @@ function Profile:SetRules(ruleType, config)
 		return;
 	end
 
-	--@debug@
-	error(string.format("There is not a rule type '%s'", ruleType));
-	--@end-debug@
+	assert(false, string.format("There is not a rule type '%s'", ruleType));
 end 
 
 --[[===========================================================================
@@ -101,10 +97,7 @@ function Profile:GetList(listType)
 		return self:GetValue(key) or {};
 	end
 
-	--@debug@
-	error(string.format("There is no '%s' list", listType));
-	--@end-debug@
-
+	assert(false, string.format("There is no '%s' list", listType));
 	return {};
 end
 
@@ -120,9 +113,7 @@ function Profile:SetList(listType, list)
 		return;
 	end
 
-	--@debug@
-	error(string.format("There is no '%s' list", listType));
-	--@end-debug@
+	assert(false, string.format("There is no '%s' list", listType));
 end
 
 --[[===========================================================================

@@ -5,11 +5,7 @@ local Encoder = Addon.Features.Import.Encoder
 local Info = Addon.Systems.Info
 local ImportDialog = {}
 
---@debug@
-local function debugp(msg, ...) 
-    Addon:Debug("importdialog", msg, ...)
-end
---@end-debug@
+local function debugp(msg, ...) Addon:Debug("importdialog", msg, ...) end
 
 local ImportHandlers = {
     customlist = "Features.Import.ImportList",

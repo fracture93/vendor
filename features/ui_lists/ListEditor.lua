@@ -101,10 +101,7 @@ end
 
 --[[ Called to change the name of this list ]]
 function ListEditor:SetName(name)
-    --@debug@
     assert(self:CanChangeProperties())
-    --@end-debug@
-
     if (name ~= self.name) then
         self.name = name or ""
         ListEditor_SetDirty(self)
@@ -119,10 +116,7 @@ end
 
 --[[ Called to change the description of this list ]]
 function ListEditor:SetDescription(description)
-    --@debug@
     assert(self:CanChangeProperties())
-    --@end-debug@
-
     if (description ~= self.description) then
         if (not description or string.len(description) == 0) then
             self.description = nil

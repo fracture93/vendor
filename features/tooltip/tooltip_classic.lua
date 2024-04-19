@@ -5,7 +5,7 @@
 
 local _, Addon = ...
 local L = Addon:GetLocale()
-local debugp = function (...) Addon:Debug("tooltip", ...) end
+local function debugp(...) Addon:Debug("tooltip", ...) end
 
 local Info = Addon.Systems.Info
 local ItemProperties = Addon.Systems.ItemProperties
@@ -235,14 +235,13 @@ function Tooltip:AddItemTooltipLines(tooltip)
         end
     end
 
-
-    --@debug@
-    if (ruleId) then
-        -- If we had a rule match (make a choice) then add it to the tooltip, if we didn't get a match then
-        -- no line means we didn't match anything.
-        tooltip:AddLine(string.format("%s RuleId: %s[%s] %s%s",L["ADDON_NAME"], ACHIEVEMENT_COLOR_CODE, ruleType, ruleId, FONT_COLOR_CODE_CLOSE))
+    if (Addon.IsDebug) then
+        if (ruleId) then
+            -- If we had a rule match (make a choice) then add it to the tooltip, if we didn't get a match then
+            -- no line means we didn't match anything.
+            tooltip:AddLine(string.format("%s RuleId: %s[%s] %s%s",L["ADDON_NAME"], ACHIEVEMENT_COLOR_CODE, ruleType, ruleId, FONT_COLOR_CODE_CLOSE))
+        end
     end
-    --@end-debug@
 end
 
 function Tooltip:OnInitialize()

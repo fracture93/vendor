@@ -1,7 +1,7 @@
 -- Merchant event handling.
 local AddonName, Addon = ...
 local L = Addon:GetLocale()
-local debugp = function (...) Addon:Debug("autosell", ...) end
+local function debugp(...) Addon:Debug("autosell", ...) end
 local MessageType = Addon.Systems.Chat.MessageType
 
 local Merchant = {

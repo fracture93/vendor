@@ -1,6 +1,6 @@
 local _, Addon = ...
 local L = Addon:GetLocale()
-local debugp = function (...) Addon:Debug("items", ...) end
+local function debugp(...) Addon:Debug("items", ...) end
 
 local ItemProperties = {}
 local itemPropertiesList = nil

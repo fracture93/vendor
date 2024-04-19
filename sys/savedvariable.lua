@@ -28,10 +28,7 @@ end
 
 --[[ Ensures the saved variable exists, if does not the assign the value provided ]]
 function SavedVariable:GetOrCreate(defaultValue)
-	--@debug@
 	assert(rawget(Addon, VARIABLES_LOADED), string.format("Attempt to access saved variable '%s' before the variables are loaded", self.savedVar))
-	--@end-debug@
-	
 	local var = _G[self.savedVar];
 	if (not var) then
 		if (defaultValue ~= nil) then
@@ -61,11 +58,7 @@ end
 --[[ Gets teh value from the variable with the specified key ]]
 function SavedVariable:Get(key)
 	local var = self:GetOrCreate();
-
-	--@debug@
 	assert(type(var) == "table")
-	--@end-debug@
-
 	local value = var[key];
 	if (type(value) == "table") then
 		return Addon.DeepTableCopy(value);
@@ -77,11 +70,7 @@ end
 --[[ Set a key in the saved varaible to the provide value ]]
 function SavedVariable:Set(key, value)
 	local var = self:GetOrCreate();
-
-	--@debug@
 	assert(type(var) == "table")
-	--@end-debug@
-
 	if (type(value) == "table") then
 		var[key] = Addon.DeepTableCopy(value);
 	else
@@ -92,12 +81,8 @@ end
 --[[ Iterate over all of the keys in the variable ]]
 function SavedVariable:ForEach(callback, ...)
 	local var = self:GetOrCreate();
-
-	--@debug@
 	assert(type(callback) == "function", "Attempt to call a non-function");
 	assert(type(var) == "table", "Attempting to iterate a non-table")
-	--@end-debug@
-
 	for key, value in pairs(var) do
 		local success = xpcall(callback, CallErrorHandler, value, key, ...);
 		if (not success) then

@@ -169,12 +169,7 @@ local function CreateComponentName(component, name)
         end
     end
 
-    --@debug@
-    if (not string.match(name, "^[a-zA-Z_0-9]+$")) then
-        error("The component has an invalid name: " .. name)
-    end
-    --@end-debug@
-
+    assert(string.match(name, "^[a-zA-Z_0-9]+$"), "The component has an invalid name: " .. name)
     if (not ctype or string.len(ctype) == 0) then
         return name
     end
@@ -192,11 +187,7 @@ end
 ]]
 function ComponentManager:Create(component, name)
     local fullname = CreateComponentName(component, name)
-
-    --@debug@
     assert(not components[fullname], "A component with the name already exists")
-    --@end-debug@
-
     local instance = {}
     for k,v in pairs(component) do
         instance[k] = v
@@ -247,12 +238,7 @@ function ComponentManager:Get(name)
         name = rawget(name, COMPONENT_NAME)
     end
     
-    --@debug--
-    if (type(name) ~= "string") then
-        error("Expected name to be astring")
-    end
-    --@end-debug@
-
+    assert(type(name) == "string", "Expected name to be a string")
     return components[string.lower(name)]
 end
 

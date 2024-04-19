@@ -61,10 +61,7 @@ end
    ==========================================================================]]
 function Profile:SetValue(key, value)
 	local var = self.profilesVariable:Get(self.profileId) or {};
-	--@debug@
 	assert(type(key) == "string", "The profile key must be a string value: " .. tostring(key));
-	--@end-debug@
-
 	if ((var[key] ~= value) or (type(value) ~= type(var[key]))) then
 		if (type(value) ~= "table") then		
 			var[key] = value;
@@ -84,11 +81,7 @@ end
    ==========================================================================]]
 function Profile:GetValue(key)
 	local var = self.profilesVariable:Get(self.profileId) or {};
-
-	--@debug@--
 	assert(type(key) == "string", "The profile key must be a string value");
-	--@end-debug@
-
 	local value = var[key];	
 	if (value == nil) then
 		if (type(self.defaults) == "table" and Addon.TableHasKey(key)) then

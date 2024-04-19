@@ -2,7 +2,7 @@
 local AddonName, Addon = ...
 local L = Addon:GetLocale()
 
-local debugp = function (...) Addon:Debug("evaluate", ...) end
+local function debugp(...) Addon:Debug("evaluate", ...) end
 
 -- System Def
 local Evaluation = {}

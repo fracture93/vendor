@@ -7,9 +7,7 @@ local RuleType = Addon.RuleType
 local PAGE_PADDING = 0
 local PAGE_SPACING = 10
 
---@debug@
 local function debugp(msg, ...) Addon:Debug("hiddenrules", msg, ...) end
---@end-debug@
 
 --[[ Load the hidden rule settings page ]]
 function HiddenRuleSettings:OnLoad()

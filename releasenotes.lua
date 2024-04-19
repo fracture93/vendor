@@ -15,7 +15,7 @@ of date for minor patches and we will always update it for major releases.
 Chat Output beta feature re-enabled for use. This feature probably has some bugs but
 it was commonly requested. Give it a try!
 
-# AdiBags Integration 
+# AdiBags Integration
 Better AdiBags integration. <MORE DETAILS>
 
 # TWW Update Planned

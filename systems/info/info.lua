@@ -7,7 +7,7 @@
 
 local _, Addon = ...
 local L = Addon:GetLocale()
-local debugp = function (...) Addon:Debug("info", ...) end
+local function debugp(...) Addon:Debug("info", ...) end
 
 -- Actual version and then assumed "next" version is the next minor version bump.
 local RETAIL_VERSION = 100002

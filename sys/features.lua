@@ -1,5 +1,5 @@
 local AddonName, Addon = ...
-local debugp = function (...) Addon:Debug("features", ...) end
+local function debugp(...) Addon:Debug("features", ...) end
 local Features = {}
 local compMgr = Addon.ComponentManager
 
@@ -42,32 +42,32 @@ function Features:InitializeFeature(name, feature)
 
     -- In debug we create a proxy to the feature so that we can 
     -- catch typo's
-    --@debug@
-    instance = setmetatable({}, {
-        __metatable = "feature:" .. name,
-        __index = function(_self, member)
-            local field = rawget(feature, member)
-            if (type(field) ~= nil and type(field) ~= "function") then
-                return field;
-            end
-
-            if (type(field) ~= 'function') then
-                error(string.format("The feature '%s' does not have a method '%s'", name, member))
-            end
-
-            return function(_, ...)
-                    local result = { xpcall(field, CallErrorHandler, feature, ...) }
-                    assert(result[1] == true, "Failed to call member: " .. member .. " on feature: " .. name)
-                    table.remove(result, 1)
-                    return unpack(result)
+    if (Addon.IsDebug) then
+        instance = setmetatable({}, {
+            __metatable = "feature:" .. name,
+            __index = function(_self, member)
+                local field = rawget(feature, member)
+                if (type(field) ~= nil and type(field) ~= "function") then
+                    return field;
                 end
-        end,
-        __newindex = function(_, name, value)
-            rawset(feature, name, value)
-        end
-    })
-    rawset(instance, "#FEATURE#", feature)
-    --@end-debug@
+
+                if (type(field) ~= 'function') then
+                    error(string.format("The feature '%s' does not have a method '%s'", name, member))
+                end
+
+                return function(_, ...)
+                        local result = { xpcall(field, CallErrorHandler, feature, ...) }
+                        assert(result[1] == true, "Failed to call member: " .. member .. " on feature: " .. name)
+                        table.remove(result, 1)
+                        return unpack(result)
+                    end
+            end,
+            __newindex = function(_, name, value)
+                rawset(feature, name, value)
+            end
+        })
+        rawset(instance, "#FEATURE#", feature)
+    end
 
     -- Merge the locale into the table
     if (type(feature.Locale) == "table") then

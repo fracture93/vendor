@@ -97,10 +97,7 @@ function Addon:RegisterCallback(event, target, handler)
     Addon:Debug("events", "Registering callback for event '%s", event)
     eventBroker:RegisterCallback(event, 
         function(...)            
-            --@debug@--
             Addon:Debug("events", "Dispatching event '%s'", event)
-            --@end-debug@
-
             local fn = handler;
             if (type(handler) == "string") then
                 fn = target[handler]
@@ -125,10 +122,7 @@ end
 
 -- Raise an event
 function Addon:RaiseEvent(event, ...)
-    --@debug@--
     Addon:Debug("events", "Raising event '%s'", event)
-    --@end-debug@
-
     eventBroker:TriggerEvent(event, ...)
 end
 

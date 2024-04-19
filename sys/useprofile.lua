@@ -43,10 +43,7 @@ end
    |	SetProfileValues(vals)
    ==========================================================================]]
 function UseProfile:SetProfileValues(values)
-	--@debug@--
 	assert(type(values) == "table", "The values must be a table value");
-	--@end-debug@	
-
 	local profile = Addon:GetProfile()
 	for name,value in pairs(values) do
 		profile:SetValue(name, value)		

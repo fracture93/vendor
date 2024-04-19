@@ -8,9 +8,13 @@ end
 -- Gets the version of the addon
 function Addon:GetVersion()
     local version = GetAddOnMetadata(AddonName, "version")
-    --@debug@
-    if version == "@project-version@" then version = "Debug" end
-    --@end-debug@
+    if (Addon.IsDebug) then
+        if version == "@project-version@" then
+            version = "Debug"
+        else
+            version = "Debug "..version
+        end
+    end
     return version
 end
 
@@ -88,9 +92,7 @@ function Addon.object(typeName, instance, API, events)
             if (type(value) == "function" and string.find(name, "__") ~= 0) then
                 fullApi[name] = value;
             else
-                --@debug@
-                error(string.format("Type '%s' API contains member '%s' which is not a function", fullName, name));
-                --@end-debug@                    
+                assert(false, string.format("Type '%s' API contains member '%s' which is not a function", fullName, name))
             end
         end
 
@@ -105,8 +107,7 @@ function Addon.object(typeName, instance, API, events)
     end
     
     local object = nil
-    if (Addon.Debug) then
-        --@debug@
+    if (Addon.IsDebug) then
         local thunk = {};
         object = setmetatable(thunk, {
             __metatable = fullName,
@@ -136,7 +137,6 @@ function Addon.object(typeName, instance, API, events)
                 end
             end,
         })
-        --@end-debug@
     else
         object = setmetatable(instance, {
             __metatable = fullName,

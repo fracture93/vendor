@@ -6,7 +6,7 @@
 
 local _, Addon = ...
 local L = Addon:GetLocale()
-local debugp = function (...) Addon:Debug("interop", ...) end
+local function debugp(...) Addon:Debug("interop", ...) end
 
 local Interop = {}
 

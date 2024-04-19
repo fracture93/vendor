@@ -11,9 +11,7 @@ local ENABLED_FILTERS = Adibags.c_EnabledFiltersKey
 local ENABLE_SELL = Adibags.c_EnableSellFilter
 local ENABLE_DESTROY = Adibags.c_EnableDestroyFilter
 
---@debug@
 local function debugp(msg, ...) Addon:Debug("adibags", msg, ...) end
---@end-debug@
 
 local AdibagsSettings = {}
 local RuleItem = Mixin({}, Addon.CommonUI.SelectableItem)

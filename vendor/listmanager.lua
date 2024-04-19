@@ -36,10 +36,7 @@ end
 
 --[[ Updates a custom list ]]
 function CustomListManager:UpdateList(id, name, description, items)
-	--@debug@
 	assert(type(savedLists:Get(id)) == "table", "There is no custom list with the specified ID :: " .. tostring(id))
-	--@end-debug@
-
 	savedLists:Set(id, {
 			Name = name, 
 			Description = description,
@@ -77,10 +74,7 @@ end
 function CustomListManager:GetLists()
 	local results = {}
 	savedLists:ForEach(function(list, id)
-		--@debug@
 		assert(id == list.Id, "Expected the list ID to match the key")
-		--@end-debug@
-
 		table.insert(results, {
 			Id = id,
 			Name = list.Name,

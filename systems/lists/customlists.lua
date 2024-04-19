@@ -104,10 +104,7 @@ function CustomLists:GetLists()
 	local results = {}
 
 	self.variable:ForEach(function(list, id)
-		--@debug@
 		assert(id == list.Id, "Expected the list ID to match the key")
-		--@end-debug@
-
 		table.insert(results, list)
 	end)
 

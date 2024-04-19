@@ -2,9 +2,7 @@ local _, Addon = ...
 local locale = Addon:GetLocale()
 local ItemProperties = Addon.Systems.ItemProperties
 
---@debug@
-local debugp = function (msg, ...) Addon:Debug("adibags",  msg, ...) end
---@debug-end@
+local function debugp(msg, ...) Addon:Debug("adibags",  msg, ...) end
 
 local Adibags= { 
     NAME = "Adibags",
