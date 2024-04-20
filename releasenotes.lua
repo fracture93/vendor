@@ -16,7 +16,8 @@ Chat Output beta feature re-enabled for use. This feature probably has some bugs
 it was commonly requested. Give it a try!
 
 # AdiBags Integration
-Better AdiBags integration. <MORE DETAILS>
+Better AdiBags integration. Enabling this beta feature will allow Vendor rules to
+become categories in Adibags.
 
 # TWW Update Planned
 We are planning a vendor 7 release for The War Within once we have beta access and
