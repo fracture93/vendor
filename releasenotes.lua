@@ -2,7 +2,20 @@ local _, Addon = ...
 
 Addon.ReleaseNotes = {
 {
-Release = "6.4 (April ??, 2024)",
+Release = "6.5 (May 3, 2024)",
+Notes = [[
+# Classic SoD, Cata Support
+
+This release just fixes Vendor so it works with Classic SoD and Cataclysm. Extensive
+testing was not done, so please let us know on the discord if you encounter a problem
+on Classic.
+
+* https://discord.gg/BtqVg8KVDg
+
+]]
+},
+{
+Release = "6.4 (April 20, 2024)",
 Notes = [[
 # Dragonflight 10.2.6 Support
 
