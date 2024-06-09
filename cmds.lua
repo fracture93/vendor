@@ -42,7 +42,7 @@ function Addon:ListToggle_Cmd(list, item)
     end
 
     -- get item id
-    local id = select(1, GetItemInfoInstant(item))
+    local id = select(1, Addon:GetItemInfoInstant(item))
 
     -- if id specified, add or remove it
     if id then
@@ -69,7 +69,7 @@ function Addon:PrintAddonList(list)
     self:Print(string.format(L["CMD_LISTDATA_LISTHEADER"], list))
     for i, v in pairs(vlist) do
         -- Get item info for pretty display
-        local name, link = GetItemInfo(tonumber(i))
+        local name, link = Addon:GetItemInfo(tonumber(i))
         local disp = link or name
 
         -- Note that GetItemInfo will not return anything if the item has not yet been seen.

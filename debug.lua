@@ -63,7 +63,7 @@ function Addon:DumpLink_Cmd(arg)
         self:Print("["..tostring(i).."] "..tostring(v))
     end
     self:Print("ItemInfo:")
-    local itemInfo = {GetItemInfo(tostring(arg))}
+    local itemInfo = {Addon:GetItemInfo(tostring(arg))}
     for i, v in pairs(itemInfo) do
         self:Print("["..tostring(i).."] "..tostring(v))
     end

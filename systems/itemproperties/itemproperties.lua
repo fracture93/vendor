@@ -101,7 +101,7 @@ local function doGetItemProperties(itemObj)
     item.Count = count
 
     -- Get more id and cache GetItemInfo, because we aren't bad.
-    local getItemInfo = {GetItemInfo(item.Link)}
+    local getItemInfo = {Addon:GetItemInfo(item.Link)}
 
     -- Safeguard to make sure GetItemInfo returned something. If not bail.
     -- This will happen if we get this far with a Keystone, because Keystones aren't items. Go figure.
@@ -114,9 +114,15 @@ local function doGetItemProperties(itemObj)
     local tooltipdata = nil
     if IS_RETAIL then
         tooltipdata = C_TooltipInfo.GetItemByGUID(item.GUID)
-        TooltipUtil.SurfaceArgs(tooltipdata)
-        for _, line in ipairs(tooltipdata.lines) do
-            TooltipUtil.SurfaceArgs(line)
+
+        -- TooltipUtil.SurfaceArgs removed in 11.0
+        -- Does not appear necessary in order for data to be
+        -- available.
+        if not Addon.Systems.Info.IsRetailNext then
+            TooltipUtil.SurfaceArgs(tooltipdata)
+            for _, line in ipairs(tooltipdata.lines) do
+                TooltipUtil.SurfaceArgs(line)
+            end
         end
     end
 
@@ -124,7 +130,7 @@ local function doGetItemProperties(itemObj)
     item.TooltipData = Addon.DeepTableCopy(tooltipdata)
 
     -- Get the effective item level.
-    item.Level = GetDetailedItemLevelInfo(item.Link)
+    item.Level = Addon:GetDetailedItemLevelInfo(item.Link)
 
     -- Rip out properties from GetItemInfo
     item.Id = itemObj:GetItemID()
@@ -162,8 +168,8 @@ local function doGetItemProperties(itemObj)
         item.Bag, item.Slot = location:GetBagAndSlot()
     end
 
-    item.IsUsable = IsUsableItem(item.Id)
-    item.IsEquipment = IsEquippableItem(item.Id)
+    item.IsUsable = Addon:IsUsableItem(item.Id)
+    item.IsEquipment = Addon:IsEquippableItem(item.Id)
     if IS_RETAIL then item.IsProfessionEquipment = item.IsEquipment and item.TypeId == 19 end
     item.IsEquipped = location and location:IsEquipmentSlot()
     if IS_RETAIL then item.IsTransmogEquipment = isTransmogEquipment(item.EquipLoc) end

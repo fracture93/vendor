@@ -156,7 +156,7 @@ function Addon:AddEntryToHistory(link, action, rule, ruleid, count, value)
     local entry = {}
     entry.TimeStamp = time()
     entry.Action = action
-    entry.Id = select(1, GetItemInfoInstant(link))
+    entry.Id = select(1, Addon:GetItemInfoInstant(link))
     entry.Count = count
     entry.Value = value
     entry.Profile = getOrCreateProfileId()
@@ -397,7 +397,7 @@ function Addon:History_Cmd(arg1, arg2, arg3)
             for _, entry in pairs(history.Characters[char].Entries) do
                 count = count + 1
                 total = total + entry.Value
-                local _, display = GetItemInfo(entry.Id)
+                local _, display = Addon:GetItemInfo(entry.Id)
                 if not display then display = entry.Id end
                 local ruleid, rule = History:GetRuleInfoFromHistoryId(entry.Rule)
                 local profileid, profile = History:GetProfileInfoFromHistoryId(entry.Profile)
