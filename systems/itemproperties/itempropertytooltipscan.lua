@@ -63,12 +63,12 @@ function ItemProperties:IsItemCraftingReagentInTooltip(tooltipdata)
     return self:IsStringInTooltipLeftText(tooltipdata, L["TOOLTIP_SCAN_CRAFTINGREAGENT"])
 end
 
--- Blizzard Account Bound
+-- Blizzard Account Bound -- Now called Warbound
 function ItemProperties:IsItemBlizzardAccountBoundInTooltip(tooltipdata)
     return self:IsStringInTooltipLeftText(tooltipdata, L["TOOLTIP_SCAN_BLIZZARDACCOUNTBOUND"])
 end
 
--- Account Bound
+-- Account Bound -- Now called Warbound
 function ItemProperties:IsItemAccountBoundInTooltip(tooltipdata)
     return self:IsStringInTooltipLeftText(tooltipdata, L["TOOLTIP_SCAN_ACCOUNTBOUND"])
 end

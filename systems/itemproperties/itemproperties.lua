@@ -180,6 +180,7 @@ local function doGetItemProperties(itemObj)
         -- TODO watch for better way. Blizzard API doesn't expose it, which means we need
         -- to scan the tooltip.
         if IS_RETAIL then
+            -- Account bound is now called "Warbound" in 11.0
             if itemproperties:IsItemAccountBoundInTooltip(tooltipdata) then
                 item.IsAccountBound = true
             end
@@ -189,6 +190,12 @@ local function doGetItemProperties(itemObj)
             item.IsBindOnEquip = true
         elseif item.BindType == 3 then
             item.IsBindOnUse = true
+        end
+    end
+
+    if location and C_Item.IsBoundToAccountUntilEquip then
+        if C_Item.IsBoundToAccountUntilEquip(location) then
+            item.IsAccountBoundEquip = true;
         end
     end
 
