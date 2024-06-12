@@ -163,7 +163,7 @@ end
 
 -- Beyond this point are debug related functions that are not packaged.
 function Addon:DumpTooltipItemProperties()
-    local props = self:GetItemPropertiesFromTooltip()
+    local props = Addon.Systems.ItemProperties:GetItemPropertiesFromTooltip()
     if not props then return end
     Addon:Output(Addon.Systems.Chat.MessageType.Console, "Properties for "..props["Link"])
 

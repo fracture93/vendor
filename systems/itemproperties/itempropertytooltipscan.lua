@@ -12,7 +12,7 @@ local function isStringInTooltipText(tooltipdata, str, location)
     assert(type(location) == "string" and (location == "Left" or location == "Right"), "Invalid arguments to isStringInTooltipText")
     if not tooltipdata then return false end
     assert(tooltipdata.lines, "Tooltip data is not populated.")
-    for i, line in ipairs(tooltipdata.lines) do
+    for k, line in pairs(tooltipdata.lines) do
         local txt = nil
         if location == "Left" and line.leftText then
             txt = line.leftText
@@ -76,4 +76,14 @@ end
 -- Cosmetic Item
 function ItemProperties:IsItemCosmeticInTooltip(tooltipdata)
     return self:IsStringInTooltipLeftText(tooltipdata, L["TOOLTIP_SCAN_COSMETIC"])
+end
+
+-- Unknown Appearance
+function ItemProperties:IsItemUnknownAppearanceInTooltip(location)
+    return self:IsStringInTooltipLeftText(tooltipdata, L["TOOLTIP_SCAN_UNKNOWNAPPEARANCE"])
+end
+
+-- Soulbound
+function ItemProperties:IsItemSoulboundInTooltip(location)
+    return self:IsStringInTooltipLeftText(tooltipdata, L["TOOLTIP_SCAN_SOULBOUND"])
 end
