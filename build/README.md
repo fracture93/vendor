@@ -4,7 +4,7 @@
 
 This is an offline builder for building and testing the addon's retail and classic versions as they appear when packaged and downloaded from Curseforge. It does not upload, but feel free to update the script to do that if you like.
 
-1) Rename the .env-rename file to '.env'
+1) Rename the .env-rename file to '.env' and put it in the root folder.
 
 2) Update any paths in the .env file for the WoW folder (the default should be correct for most).
 

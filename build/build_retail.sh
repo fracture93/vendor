@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Load paths. We assume paths are in the .env file and that this is being executed from the addon's .release folder.
-. ".env"
+# Load paths. We assume paths are in the .env file and that this is being executed from the addon's build folder.
+. "../.env"
 
 all_flavors="_retail_ _ptr_ _xptr_ _classic_ _classic_era_ _beta_"
 
@@ -24,7 +24,7 @@ do
 done
 
 # Now recursively delete the old folder.
-rm -rf ".release/retail"
+rm -rf "../.release/retail"
 
 # Build the retail addons. We are not publishing. Offline only.
 ./release.sh -dz -r ../.release/retail -m ./../.pkgmeta
@@ -39,7 +39,7 @@ do
     addons_folder="$WOW_PATH""\\$root\Interface\Addons\\"    
     echo "Addon Path: "$addons_folder
 
-    addon_src="retail\\"
+    addon_src="..\\.release\\retail\\"
     addon_path="$addons_folder$ADDON_NAME"
 
     # Replace junction for main addon

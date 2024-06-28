@@ -10,6 +10,7 @@ ignore:
  - sys/test.lua
  - debug.lua
  - test/*
+ - build/*
  - .release/*
  - *.sh
 
