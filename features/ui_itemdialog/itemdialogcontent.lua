@@ -55,7 +55,22 @@ function ItemDialogContent:GetItemProperties()
     
     if item then
         if type(item) == "table" then
+            local categories = {}
+            for _, name in ipairs(self.itemInfo:GetPropertyCategories()) do
+                table.insert(categories, { Name = name, Items = {} })
+            end
+
+            local findCategory = function(name)
+                for _, c  in ipairs(categories) do
+                    if c.Name == name then
+                        return c
+                    end
+                end
+                 return nil
+            end
+
             for name, value in pairs(item) do
+
                 local isApplicable = true
                 local hideType = 0
 
@@ -97,11 +112,19 @@ function ItemDialogContent:GetItemProperties()
 
                 -- TODO: Add debug setting to override to show all properties regardless
                 -- of applicability or hide state.
-                if (hideType ~= 1) and isApplicable then
-                    table.insert(models, {
-                        Name = name,
-                        Value = value
-                    })
+                local category = findCategory(self.itemInfo:GetPropertyCategory(name))
+                if (hideType ~= 1) and isApplicable and category ~= nil then
+                    table.insert(category.Items,  { Name = name, Value = value })
+                end
+            end
+
+            for _, category in ipairs(categories) do
+                if table.getn(category.Items) ~= 0 then
+                    table.insert(models, { Name = category.Name, Header = true })
+                    table.sort(category.Items, function(a, b) return a.Name < b.Name end)
+                    for _, model in ipairs(category.Items) do
+                        table.insert(models, model)
+                    end
                 end
             end
         else
@@ -112,16 +135,22 @@ function ItemDialogContent:GetItemProperties()
     return models
 end
 
-function ItemDialogContent:CreatePropertyItem()
-    return Mixin(CreateFrame("Frame", nil, self.properties, "ItemDialog_ItemProperty"), Addon.Features.ItemDialog.PropertyItem)
+function ItemDialogContent:CreatePropertyItem(model)
+    if model.Header then
+        return Mixin(CreateFrame("Frame", nil, self.properties, "ItemDialog_ItemCategory"), Addon.Features.ItemDialog.HeaderItem)        
+    else
+        return Mixin(CreateFrame("Frame", nil, self.properties, "ItemDialog_ItemProperty"), Addon.Features.ItemDialog.PropertyItem)
+    end
 end
 
 --[[ Show the export dialog with the contents provided ]]
 function Addon.Features.ItemDialog:ShowDialog()
-    local dialog = UI.Dialog("ITEMDIALOG_CAPTION", "ItemDialog_Content", ItemDialogContent, {
+    if not self.dialog then
+        self.dialog = UI.Dialog("ITEMDIALOG_CAPTION", "ItemDialog_Content", ItemDialogContent, {
             { id="close", label = CLOSE, handler = "Hide" },
         })
+    end
 
-    dialog:Show()
-    dialog:Raise()
+    self.dialog:Show()
+    self.dialog:Raise()
 end

@@ -1,5 +1,6 @@
 local _, Addon = ...
 local PropertyItem = {}
+local HeaderItem = {}
 local Colors = Addon.CommonUI.Colors
 
 -- +Load the frame
@@ -124,4 +125,10 @@ function PropertyItem:OnMouseDown(button)
     local model = self:GetModel()
 end
 
+-- Called when the model has cahnged
+function HeaderItem:OnModelChange(model)
+    self.name:SetText(model.Name)
+end
+
 Addon.Features.ItemDialog.PropertyItem = PropertyItem
+Addon.Features.ItemDialog.HeaderItem = HeaderItem

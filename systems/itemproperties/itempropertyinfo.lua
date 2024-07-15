@@ -31,6 +31,7 @@ local ITEM_PROPERTIES_CATEGORIES = {
     {Name = "Transmog", Display = true },
     {Name = "Pet", Display = true },
     {Name = "System", Display = false },
+    {Name = "Debug", Display = Addon.IsDebug },
 }
 
 local ITEM_PROPERTIES = {
@@ -119,6 +120,9 @@ local ITEM_PROPERTIES = {
 
     -- Used for data only
     TooltipData             = { Default=nil,    Hide=1,  Category="System",     Parent=nil,                   Type="table",     Supported={ Retail=true, Classic=false, RetailNext=true, ClassicNext=false } },
+
+    -- Debug properties
+    TransmogInfoSource      = { Default=nil,    Hide=0,  Category="Debug",     Parent=nil,                   Type="string",     Supported={ Retail=true, Classic=false, RetailNext=true, ClassicNext=false } }
 }
 
 function Addon.Systems.ItemProperties:GetPropertyCategories()

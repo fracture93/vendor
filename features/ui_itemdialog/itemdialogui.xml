@@ -84,4 +84,31 @@
 			</Layer>
 		</Layers>
 	</Frame>
+
+	<Frame name="ItemDialog_ItemCategory" virtual="true" hidden="true">
+        <Size x="1" y="20"/>
+		<KeyValues>
+			<KeyValue key="PaddingY" value="8" type="number"/>
+		</KeyValues>
+		<Size x="1" y="1"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="hilite" hidden="false">
+					<Color r="1" g="1" b="1" a=".125"/>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+						<Anchor point="BOTTOMRIGHT"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString parentKey="name" justifyH="LEFT" justifyV="MIDDLE" inherits="GameFontNormal" maxLines="1" wordwrap="false">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="8" y="0"/>
+						<Anchor point="BOTTOMRIGHT" x="-8" y="0"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>    
 </Ui>
