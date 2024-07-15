@@ -33,7 +33,7 @@ function ItemDialogContent:OnShow()
         if self.current then
             self.item:SetItem(self.current.Id, false)
         end
-        
+
         self.properties:Rebuild()
     end
 end
@@ -118,15 +118,22 @@ function ItemDialogContent:GetItemProperties()
                 -- TODO: Add debug setting to override to show all properties regardless
                 -- of applicability or hide state.
                 local category = findCategory(self.itemInfo:GetPropertyCategory(name))
+                local rank = self.itemInfo:GetPropertyRank(name)
                 if (hideType ~= 1) and isApplicable and category ~= nil then
-                    table.insert(category.Items,  { Name = name, Value = value })
+                    table.insert(category.Items,  { Name = name, Value = value, Rank = rank or 0 })
                 end
             end
 
             for _, category in ipairs(categories) do
                 if table.getn(category.Items) ~= 0 then
                     table.insert(models, { Name = category.Name, Header = true })
-                    table.sort(category.Items, function(a, b) return a.Name < b.Name end)
+                    table.sort(category.Items, function(a, b)
+                        if a.Rank ~= b.Rank then
+                            return a.Rank < b.Rank 
+                        end
+                        
+                        return a.Name < b.Name
+                    end)
                     for _, model in ipairs(category.Items) do
                         table.insert(models, model)
                     end
@@ -144,7 +151,7 @@ function ItemDialogContent:CreatePropertyItem(model)
     if model.Header then
         return Mixin(CreateFrame("Frame", nil, self.properties, "ItemDialog_ItemCategory"), Addon.Features.ItemDialog.HeaderItem)        
     else
-        return Mixin(CreateFrame("Frame", nil, self.properties, "ItemDialog_ItemProperty"), Addon.Features.ItemDialog.PropertyItem)
+        return Mixin(CreateFrame("Button", nil, self.properties, "ItemDialog_ItemProperty"), Addon.Features.ItemDialog.PropertyItem)
     end
 end
 

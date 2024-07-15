@@ -3,14 +3,9 @@ local PropertyItem = {}
 local HeaderItem = {}
 local Colors = Addon.CommonUI.Colors
 
--- +Load the frame
-function PropertyItem:OnLoad()
-    self.value:SetWordWrap(true)
-    self:RegisterForClicks("LeftButton", "RightButton")
-end
-
 -- Called when the model has cahnged
 function PropertyItem:OnModelChange(model)
+    self:RegisterForClicks("AnyUp")
     self.name:SetText(model.Name)
 
     local valueText = "nil"
@@ -122,13 +117,17 @@ end
 
 -- Called when the item is clicked
 function PropertyItem:OnMouseDown(button)
+    
     local model = self:GetModel()
 end
 
 -- Called when the model has cahnged
 function HeaderItem:OnModelChange(model)
+    self:OnBorderLoaded("tbk")
+    self:SetBackgroundColor("HELPITEM_PROPERTY_BACK")
+    self:SetBorderColor("HELPITEM_PROPERTY_BORDER")
     self.name:SetText(model.Name)
 end
 
 Addon.Features.ItemDialog.PropertyItem = PropertyItem
-Addon.Features.ItemDialog.HeaderItem = HeaderItem
+Addon.Features.ItemDialog.HeaderItem = Mixin(HeaderItem, Addon.CommonUI.Mixins.Border)

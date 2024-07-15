@@ -37,6 +37,7 @@
 					<KeyValue key="ItemCreator" value="CreatePropertyItem" type="string"/>
 					<KeyValue key="EmptyText" value="EDITRULE_ITEM_PROPERTIES_EMPTY" type="string"/>
 					<KeyValue key="OnInsertText" value="InsertScriptText" type="string"/>
+					<KeyValue key="Padding" value="6" type="number"/>
 				</KeyValues>
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeKey="$parent.label" relativePoint="BOTTOMLEFT" y="-12"/>
@@ -46,7 +47,7 @@
         </Frames>
     </Frame>
 
-	<Frame name="ItemDialog_ItemProperty" virtual="true" hidden="true">
+	<Button name="ItemDialog_ItemProperty" virtual="true" hidden="true">
 		<KeyValues>
 			<KeyValue key="PaddingY" value="8" type="number"/>
 		</KeyValues>
@@ -62,10 +63,10 @@
 				</Texture>
 			</Layer>
 			<Layer level="ARTWORK">
-				<FontString parentKey="name" justifyH="LEFT" justifyV="TOP" inherits="GameFontHighlight" maxLines="1" wordwrap="true">
+				<FontString parentKey="name" justifyH="LEFT" justifyV="TOP" inherits="GameFontHighlight" maxLines="1" wordwrap="false">
 					<Anchors>
-						<Anchor point="TOPLEFT" x="8" y="-4"/>
-						<Anchor point="RIGHT" relativePoint="LEFT" x="150"/>
+						<Anchor point="TOPLEFT" x="20" y="-4"/>
+						<Anchor point="RIGHT" relativePoint="LEFT" x="160"/>
 					</Anchors>
 				</FontString>
 				<FontString parentKey="equals" justifyH="CENTER" justifyV="TOP" inherits="GameFontHighlight" maxLines="1" text="=">
@@ -83,7 +84,7 @@
 				</FontString>
 			</Layer>
 		</Layers>
-	</Frame>
+	</Button>
 
 	<Frame name="ItemDialog_ItemCategory" virtual="true" hidden="true">
         <Size x="1" y="20"/>
@@ -92,15 +93,6 @@
 		</KeyValues>
 		<Size x="1" y="1"/>
 		<Layers>
-			<Layer level="BACKGROUND">
-				<Texture parentKey="hilite" hidden="false">
-					<Color r="1" g="1" b="1" a=".125"/>
-					<Anchors>
-						<Anchor point="TOPLEFT"/>
-						<Anchor point="BOTTOMRIGHT"/>
-					</Anchors>
-				</Texture>
-			</Layer>
 			<Layer level="ARTWORK">
 				<FontString parentKey="name" justifyH="LEFT" justifyV="MIDDLE" inherits="GameFontNormal" maxLines="1" wordwrap="false">
 					<Anchors>
