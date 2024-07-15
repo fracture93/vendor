@@ -22,6 +22,17 @@ local function debugp(...) Addon:Debug("itempropertyinfo", ...) end
 
 ]]
 
+local ITEM_PROPERTIES_CATEGORIES = {
+    {Name = "General", Display = true },
+    {Name = "Location", Display = true },
+    {Name = "Type", Display = true },
+    {Name = "Binding", Display = true },
+    {Name = "Equipment", Display = true },
+    {Name = "Transmog", Display = true },
+    {Name = "Pet", Display = true },
+    {Name = "System", Display = false },
+}
+
 local ITEM_PROPERTIES = {
     -- Core properties
     -- GUID is intentionally defaulted to false. If we dont have it, we dont have item properties.
@@ -109,6 +120,16 @@ local ITEM_PROPERTIES = {
     -- Used for data only
     TooltipData             = { Default=nil,    Hide=1,  Category="System",     Parent=nil,                   Type="table",     Supported={ Retail=true, Classic=false, RetailNext=true, ClassicNext=false } },
 }
+
+function Addon.Systems.ItemProperties:GetPropertyCategories()
+    local categories = {}
+    for i, v in ipairs(ITEM_PROPERTIES_CATEGORIES) do
+        if v.Display then
+            table.insert(categories, v.Name)
+        end
+    end
+    return categories
+end
 
 -- Property info accessors
 function Addon.Systems.ItemProperties:IsPropertyDefined(name)
