@@ -17,7 +17,9 @@ function ItemDialogContent:ON_CURSOR_CHANGED()
     local item = C_Cursor.GetCursorItem()
     if item then
         self.current = self.itemInfo:GetItemProperties(item)
-        self.item:SetItem(self.current.Id, false)
+        if self.current then
+            self.item:SetItem(self.current.Id, false)
+        end
         self.properties:Rebuild()
     end
 end
@@ -28,7 +30,10 @@ function ItemDialogContent:OnShow()
     local item = C_Cursor.GetCursorItem()
     if item then 
         self.current = self.itemInfo:GetItemProperties(item)
-        self.item:SetItem(self.current.Id, false)
+        if self.current then
+            self.item:SetItem(self.current.Id, false)
+        end
+        
         self.properties:Rebuild()
     end
 end
