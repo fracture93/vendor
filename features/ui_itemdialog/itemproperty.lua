@@ -3,6 +3,17 @@ local PropertyItem = {}
 local HeaderItem = {}
 local Colors = Addon.CommonUI.Colors
 
+local ACTIONS = {
+    { Button = "Left",  Display = "Left-Click" },
+    { Button = "Left", Mod = "ALT",  Display = "Alt + Left-Click"  },
+    { Button = "Left", Mod = "CTRL",  Display = "Control + Left-Click" },
+    { Button = "Left", Mod = "SHIFT",  Display = "Shift + Left-Click"  },
+    { Button = "Right",  Display = "Left-Click" },
+    { Button = "Right", Mod = "ALT",  Display = "Alt + Right-Click"  },
+    { Button = "Right", Mod = "CTRL",  Display = "Control + Right-Click" },
+    { Button = "Right", Mod = "SHIFT",  Display = "Shift + Right-Click"  }
+}
+
 -- Called when the model has cahnged
 function PropertyItem:OnModelChange(model)
     self:RegisterForClicks("AnyUp")
@@ -69,7 +80,7 @@ end
 -- Called to ge the intert text (can be nil)
 function PropertyItem:GetInsertText(button, modifier)
     local model = self:GetModel()
-    return nil
+    return self:Notify("GetClickAction", model, button, modifier)
 end
 
 -- Called when the mouse enters the item
@@ -79,32 +90,32 @@ function PropertyItem:OnEnter()
     local model = self:GetModel()
     local documentation = self:GetDocumentation()
 
-    if type(documentation) == "string" then
+    GameTooltip:SetOwner(self, "ANCHOR_NONE")
+    GameTooltip:AddLine(model.Name, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
+    GameTooltip:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -4)
 
-        GameTooltip:SetOwner(self, "ANCHOR_NONE")
-        GameTooltip:AddLine(model.Name, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
-        GameTooltip:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -4)
-
-        if (type(documentation) == "string") then
-            GameTooltip:AddLine(documentation, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, true)
-            --GameTooltip:AddLine(" ")
-        end
-
-        --[[GameTooltip:AddDoubleLine("Left-click", item:GetInsertText("LeftButton"),
-            YELLOW_FONT_COLOR.r, YELLOW_FONT_COLOR.g, YELLOW_FONT_COLOR.b,
-            GREEN_FONT_COLOR.r,  GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
-        GameTooltip:AddDoubleLine("Alt + Left-cLick", item:GetInsertText("LeftButton", "ALT"),
-            YELLOW_FONT_COLOR.r, YELLOW_FONT_COLOR.g, YELLOW_FONT_COLOR.b,
-            GREEN_FONT_COLOR.r,  GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
-        GameTooltip:AddDoubleLine("Right-cLick", item:GetInsertText("RightButton"),
-            YELLOW_FONT_COLOR.r, YELLOW_FONT_COLOR.g, YELLOW_FONT_COLOR.b,
-            GREEN_FONT_COLOR.r,  GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
-        GameTooltip:AddDoubleLine("Alt + Right-click", item:GetInsertText("RightButton", "ALT"),
-            YELLOW_FONT_COLOR.r, YELLOW_FONT_COLOR.g, YELLOW_FONT_COLOR.b,
-            GREEN_FONT_COLOR.r,  GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)]]
-
-        GameTooltip:Show()
+    if (type(documentation) == "string") then
+        GameTooltip:AddLine(documentation, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, true)
+        --GameTooltip:AddLine(" ")
     end
+
+
+    local space = false
+    for _, action in ipairs(ACTIONS) do 
+        local text = self:GetInsertText(action.Button, action.Mod)
+        if text and string.len(text) then
+            if not space then
+                GameTooltip:AddLine(" ")
+                space = true
+            end
+
+            GameTooltip:AddDoubleLine(action.Display, text,
+                YELLOW_FONT_COLOR.r, YELLOW_FONT_COLOR.g, YELLOW_FONT_COLOR.b,
+                GREEN_FONT_COLOR.r,  GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
+        end
+    end
+
+    GameTooltip:Show()
 end
 
 -- Called when trhe mouse leves the frame
@@ -117,8 +128,30 @@ end
 
 -- Called when the item is clicked
 function PropertyItem:OnMouseDown(button)
-    
     local model = self:GetModel()
+
+    if button == "LeftButton" then
+        button = "Left"
+    elseif button == "RightButton" then
+        button = "Right"
+    else
+        return
+    end
+
+    local modifier = nil
+    if (IsShiftKeyDown()) then
+        modifier = "SHIFT"
+    elseif (IsAltKeyDown()) then
+        modifier = "ALT"
+    elseif (IsControlKeyDown()) then
+        modifier = "CTRL"
+    end
+
+    local text = self:GetInsertText(button, modifier)
+    print("===> mousedown::", button, modifier, text)
+    if text and string.len(text) ~= 0 then
+        self:Notify("OnHandleAction", text)
+    end
 end
 
 -- Called when the model has cahnged
