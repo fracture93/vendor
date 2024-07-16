@@ -6,7 +6,7 @@
             <Layer level="ARTWORK">
                 <FontString parentKey="label" inherits="GameFontNormal" justifyH="LEFT">
                     <KeyValues>
-                        <KeyValue key="Color" value="SECONDARY_TEXT"/>
+                        <KeyValue key="Color" value="TEXT"/>
                         <KeyValue key="LocText" value="EDITRULE_ITEM_LABEL"/>
                     </KeyValues>
                     <Size x="48" y="26"/>
@@ -14,9 +14,19 @@
                         <Anchor point="TOPLEFT"/>
                     </Anchors>
                 </FontString>
+                <FontString parentKey="followLabel" inherits="GameFontNormal" justifyH="LEFT" wordwrap="true">
+                    <KeyValues>
+                        <KeyValue key="Color" value="SECONDARY_TEXT"/>
+                        <KeyValue key="LocText" value="ITEMDIALOG_FOLLOW_MOUSE"/>
+                    </KeyValues>
+                    <Anchors>                    
+                        <Anchor point="BOTTOMLEFT" x="40"/>
+                        <Anchor point="BOTTOMRIGHT"/>
+                    </Anchors>
+                </FontString>
             </Layer>
         </Layers>
-        <Frames>
+        <Frames>        
 			<Frame inherits="CommonUI_ItemLink" parentKey="item">
 				<KeyValues>
 					<KeyValue key="AllowDrop" value="true" type="boolean"/>
@@ -30,6 +40,16 @@
 					<Anchor point="BOTTOM" relativeKey="$parent.label"/>
 				</Anchors>
 			</Frame>
+            <Button inherits="CommonUI_Switch" parentKey="follow">
+                <KeyValues>
+                    <KeyValue key="bit" type="number" value="1"/>
+                </KeyValues>
+                <Size x="28" y="16"/>
+                <Anchors>
+                    <Anchor point="TOP" relativePoint="TOP" relativeKey="$parent.followLabel"/>
+                    <Anchor point="LEFT"/>
+                </Anchors>
+            </Button>
 			<Frame parentKey="properties" inherits="CommonUI_List">
 				<Size x="10" y="100"/>
 				<KeyValues>
@@ -41,7 +61,8 @@
 				</KeyValues>
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeKey="$parent.label" relativePoint="BOTTOMLEFT" y="-12"/>
-					<Anchor point="BOTTOMRIGHT"/>
+                    <Anchor point="RIGHT"/>
+					<Anchor point="BOTTOM" relativeKey="$parent.follow" relativePoint="TOP" y="12"/>
 				</Anchors>
 			</Frame>
         </Frames>

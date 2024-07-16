@@ -84,6 +84,12 @@ Addon.CommonUI.ItemLink = Mixin({
             end)
     end,
 
+    --[[Clear the content from this item link]]
+    ClearItem = function(itemLink)
+        itemLink.text:SetText("")
+        itemLink:ShowPlaceholder(true)
+    end,
+
     --[[
         static
 

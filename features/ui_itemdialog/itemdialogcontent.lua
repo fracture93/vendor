@@ -11,9 +11,25 @@ function ItemDialogContent:OnInitDialog(dialog)
     debugp("Initialize itemdialog dialog")
     self:SetButtonState({ close = true })
     self.itemInfo = Addon:GetSystem("ItemProperties")
+
+    self.follow:RegisterCallback("OnChange", function()
+            local profile = Addon:GetProfile()
+            profile:SetValue("itemdialog_followmouse", self.follow:GetValue())
+            self:UpdateFollowLabel(self.follow:GetValue())        
+        end)
+end
+
+-- Called to h
+function ItemDialogContent:OnProfileChanged()
+    self:SetFollowState()
 end
 
 function ItemDialogContent:ON_CURSOR_CHANGED()
+    local follow = Addon:GetProfile():GetValue("itemdialog_followmouse")
+    if not follow then 
+        return
+    end
+
     local item = C_Cursor.GetCursorItem()
     if item then
         self.current = self.itemInfo:GetItemProperties(item)
@@ -26,6 +42,7 @@ end
 
 function ItemDialogContent:OnShow()
     self.current = nil
+    self:SetFollowState()
 
     local item = C_Cursor.GetCursorItem()
     if item then 
@@ -44,6 +61,21 @@ end
 function ItemDialogContent:OnItemChanged()
     self.current = self.itemInfo:GetItemPropertiesFromItem(self.item)
     self.properties:Rebuild()
+end
+
+function ItemDialogContent:SetFollowState()
+    local profile = Addon:GetProfile();
+    local follow = profile:GetValue("itemdialog_followmouse") or false
+    self.follow:SetValue(follow)
+    self:UpdateFollowLabel(follow)
+end
+
+function ItemDialogContent:UpdateFollowLabel(enabled)
+    if enabled then
+        UI.SetColor(self.followLabel, "TEXT")
+    else
+        UI.SetColor(self.followLabel, "SECONDARY_TEXT")
+    end
 end
 
 function ItemDialogContent:GetItem()
@@ -142,6 +174,8 @@ function ItemDialogContent:GetItemProperties()
         else
             debugp("Unable to get properties for item :: %s", item:GetItemID())
         end
+    else
+        self.item:ClearItem()
     end
 
     return models
