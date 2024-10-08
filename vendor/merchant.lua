@@ -64,7 +64,15 @@ function Addon:IsAutoSelling()
 end
 
 -- If this merchant has no items it is not a sellable merchant (such as an autohammer).
-function Addon:CanSellAtMerchant()
+function Merchant:CanSellAtMerchant()
+    -- Check if interacting with Grizzly Hills Packmasters Field Repair Anvil
+    if UnitGUID("npc") then
+        local _, _, _, _, _, npcId = strsplit("-", UnitGUID("npc"))
+        if npcId == "227774" then
+            return true
+        end
+    end
+
     return GetMerchantNumItems() > 0
 end
 
